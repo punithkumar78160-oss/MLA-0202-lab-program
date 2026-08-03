@@ -1,0 +1,20 @@
+from sklearn.datasets import load_iris
+from sklearn.mixture import GaussianMixture
+
+iris = load_iris()
+X = iris.data
+
+gmm = GaussianMixture(n_components=3, random_state=42)
+
+gmm.fit(X)
+
+labels = gmm.predict(X)
+
+print("Cluster Labels:")
+print(labels)
+
+print("\nMeans of Clusters:")
+print(gmm.means_)
+
+print("\nWeights of Clusters:")
+print(gmm.weights_)
