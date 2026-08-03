@@ -1,0 +1,33 @@
+import csv
+
+with open("trainingdata.csv", "r") as file:
+    data = list(csv.reader(file))
+
+print("Training Data:")
+for row in data:
+    print(row)
+concepts = [row[:-1] for row in data[1:]]
+target = [row[-1] for row in data[1:]]
+S = concepts[0][:]
+G = [["?" for _ in range(len(S))]]
+
+for i, h in enumerate(concepts):
+    if target[i] == "Yes":
+        # Update S
+        for x in range(len(S)):
+            if h[x] != S[x]:
+                S[x] = "?"
+    else:
+        
+        for x in range(len(S)):
+            if h[x] != S[x] and S[x] != "?":
+                G.append(["?" if i != x else S[x] for i in range(len(S))])
+
+G = [x for x in G if x != ["?" for _ in range(len(S))]]
+
+print("\nFinal Specific Hypothesis (S):")
+print(S)
+
+print("\nFinal General Hypothesis (G):")
+for g in G:
+    print(g)
