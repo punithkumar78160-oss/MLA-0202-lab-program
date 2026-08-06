@@ -1,0 +1,41 @@
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+X = [
+    [25, 30000, 5000],
+    [35, 60000, 10000],
+    [45, 80000, 15000],
+    [23, 25000, 7000],
+    [40, 70000, 12000],
+    [50, 90000, 20000],
+    [28, 40000, 6000],
+    [38, 65000, 11000],
+    [30, 50000, 9000],
+    [48, 85000, 18000]
+]
+y = [
+    "Bad",
+    "Good",
+    "Good",
+    "Bad",
+    "Good",
+    "Good",
+    "Bad",
+    "Good",
+    "Bad",
+    "Good"
+]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+new_customer = [[32, 55000, 8000]]
+prediction = model.predict(new_customer)
+
+print("\nNew Customer Prediction:", prediction[0])
